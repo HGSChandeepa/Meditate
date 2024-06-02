@@ -4,6 +4,7 @@ import 'package:meditation/providers/filter_provider.dart';
 import 'package:meditation/providers/meditation_provider.dart';
 import 'package:meditation/providers/mindfull_exercise_provider.dart';
 import 'package:meditation/providers/sleep_content_provider.dart';
+import 'package:meditation/router/router.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,8 +21,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainScreen(),
+    return MaterialApp.router(
+      title: 'Meditation',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routerConfig: RouterClass().router,
     );
   }
 }

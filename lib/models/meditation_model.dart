@@ -4,6 +4,7 @@ class MeditationContent {
   final String description;
   final int duration;
   final String audioUrl;
+  final String videoUrl;
 
   MeditationContent({
     required this.category,
@@ -11,6 +12,7 @@ class MeditationContent {
     required this.description,
     required this.duration,
     required this.audioUrl,
+    required this.videoUrl,
   });
 
   // This method is used to convert the JSON data from the API into a Dart object.
@@ -22,6 +24,7 @@ class MeditationContent {
       description: json['description'],
       duration: json['duration'],
       audioUrl: json['audio_url'],
+      videoUrl: json['video_url'],
     );
   }
 
@@ -34,6 +37,7 @@ class MeditationContent {
       'description': description,
       'duration': duration,
       'audio_url': audioUrl,
+      'video_url': videoUrl,
     };
   }
 }
