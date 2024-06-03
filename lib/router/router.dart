@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:meditation/models/functions_model.dart';
 import 'package:meditation/pages/functions_page.dart';
-import 'package:meditation/pages/main_pages/home_page.dart';
+import 'package:meditation/pages/main_screen.dart';
 import 'package:meditation/router/route_names.dart';
 
 class RouterClass {
@@ -12,7 +12,7 @@ class RouterClass {
         name: RouteNames.home,
         path: "/",
         builder: (context, state) {
-          return const HomePage();
+          return const MainScreen();
         },
       ),
       GoRoute(
