@@ -3,14 +3,14 @@ import 'package:meditation/widgets/meditatio_form.dart';
 import 'package:meditation/widgets/mindufull_exercise_from.dart';
 import 'package:meditation/widgets/sleep_content_form.dart';
 
-class CreateMeditationPage extends StatefulWidget {
-  const CreateMeditationPage({super.key});
+class CreateCustomExercise extends StatefulWidget {
+  const CreateCustomExercise({super.key});
 
   @override
-  State<CreateMeditationPage> createState() => _CreateMeditationPageState();
+  State<CreateCustomExercise> createState() => _CreateCustomExerciseState();
 }
 
-class _CreateMeditationPageState extends State<CreateMeditationPage> {
+class _CreateCustomExerciseState extends State<CreateCustomExercise> {
   //slect the type of content
   String typeOfContent = 'Meditation';
 

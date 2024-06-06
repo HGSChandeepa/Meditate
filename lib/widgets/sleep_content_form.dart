@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meditation/models/sleep_content_model.dart';
+import 'package:meditation/providers/meditation_provider.dart';
+import 'package:meditation/providers/sleep_content_provider.dart';
+import 'package:provider/provider.dart';
 
 class SleepContentForm extends StatelessWidget {
   SleepContentForm({super.key});
@@ -96,7 +100,18 @@ class SleepContentForm extends StatelessWidget {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    //send the data to the API
+                    //create a new sleep content object
+                    final sleepContent = SleepContent(
+                      category: _category,
+                      name: _name,
+                      description: _description,
+                      duration: _duration,
+                      audioUrl: _audioUrl,
+                    );
+
+                    //use the provider to add the new sleep content
+                    Provider.of<SleepContentProvider>(context, listen: false)
+                        .addSleepContent(sleepContent, context);
                   }
                 },
                 child: const Text('Submit'),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:meditation/pages/main_pages/create_meditation.dart';
+import 'package:meditation/pages/main_pages/create_custom_exercise.dart';
 import 'package:meditation/pages/main_pages/home_page.dart';
 import 'package:meditation/pages/main_pages/meditation_page.dart';
 import 'package:meditation/pages/main_pages/profile_page.dart';
-import 'package:meditation/pages/main_pages/stats_page.dart';
+import 'package:meditation/pages/main_pages/custum_exercises.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,10 +35,10 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    CreateMeditationPage(),
+    CustomExercises(),
+    CreateCustomExercise(),
     MeditationPage(),
     HomePage(),
-    StatsPage(),
     ProfilePage(),
   ];
 

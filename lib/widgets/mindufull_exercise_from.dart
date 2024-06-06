@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:meditation/models/mindfull_exercise_model.dart';
+import 'package:meditation/providers/mindfull_exercise_provider.dart';
+import 'package:provider/provider.dart';
 
 class MindFullExerciseForm extends StatefulWidget {
   MindFullExerciseForm({super.key});
@@ -21,7 +24,7 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
   List<String> instructions = [];
   int duration = 0;
   String instructionsUrl = "";
-  File? _image;
+  File? imagepath;
 
   final ImagePicker _picker = ImagePicker();
 
@@ -30,7 +33,7 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        imagepath = File(pickedFile.path);
       } else {
         print('No image selected.');
       }
@@ -47,9 +50,9 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
           child: Column(
             children: [
               //image picker
-              if (_image != null)
+              if (imagepath != null)
                 Image.file(
-                  _image!,
+                  imagepath!,
                   height: 200,
                 ),
               Row(
@@ -118,7 +121,7 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
                   return null;
                 },
                 onSaved: (value) {
-                  instructions = value!.split('\n');
+                  instructions = value!.split(',');
                 },
               ),
 
@@ -160,7 +163,23 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              //send the data to the API
+              //convert the imagepath to a string
+              final imagePathString = imagepath?.path ?? '';
+              print(imagePathString);
+              //create a new MindFullExercise object
+              final MindfulnessExercise mindFullExercise = MindfulnessExercise(
+                category: category,
+                name: name,
+                description: description,
+                instructions: instructions,
+                duration: duration,
+                instructionsUrl: instructionsUrl,
+                imagePath: imagePathString,
+              );
+
+              //use the provider to add the new mindfull content
+              Provider.of<MindfullExerciseProvider>(context, listen: false)
+                  .addMindfullExercise(mindFullExercise, context);
             }
           },
           child: const Text('Submit'),

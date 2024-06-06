@@ -54,13 +54,13 @@ class MeditationService {
       //get all the meditations
       final dynamic allMeditatios = _meditationBox.get("meditations");
       //convert the dynamic list to a list of MeditationContent
-      // final List<MeditationContent> meditationList = allMeditatios
-      //     .map((meditation) => MeditationContent.fromJson(meditation))
-      //     .toList();
-      print(allMeditatios);
-      return allMeditatios;
+      final List<MeditationContent> meditationList = allMeditatios
+          .map((meditation) => MeditationContent.fromJson(meditation))
+          .toList();
+      print(meditationList);
+      return meditationList;
     } catch (e) {
-      print(e);
+      print("get meditations error: $e");
       return [];
     }
   }
