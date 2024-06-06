@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
@@ -5,12 +7,13 @@ import 'package:meditation/models/functions_model.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
 import 'package:meditation/models/sleep_content_model.dart';
 import 'package:meditation/providers/filter_provider.dart';
+import 'package:meditation/router/route_names.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  // Method to open the bottom sheet
+  // handle meditation pressed
   void openBottomSheet(BuildContext context, final title, final duration,
       final description, final category, final videoUrl) {
     showModalBottomSheet(
@@ -86,6 +89,25 @@ class HomePage extends StatelessWidget {
         );
       },
     );
+  }
+
+  //handle mindfullness exercises pressed
+  void handleMindfullnessPressed(
+      BuildContext context, MindfulnessExercise data) {
+    GoRouter.of(context)
+        .pushNamed(RouteNames.midfullExerciseTimer, queryParameters: {
+      'mindfullExercise': jsonEncode(
+        data.toJson(),
+      )
+    });
+  }
+
+  //handle sleep stories pressed
+  void handleSleepStoriesPressed(BuildContext context, SleepContent data) {
+    GoRouter.of(context)
+        .pushNamed(RouteNames.sleepStoryTimer, queryParameters: {
+      'sleepContent': jsonEncode(data.toJson()),
+    });
   }
 
   @override
@@ -170,14 +192,21 @@ class HomePage extends StatelessWidget {
                             children: completeData.map((data) {
                               return GestureDetector(
                                 onTap: () {
-                                  openBottomSheet(
-                                    context,
-                                    data.name,
-                                    data.duration,
-                                    data.description,
-                                    data.category,
-                                    data.videoUrl ?? '',
-                                  );
+                                  //handle the event according to the data type
+                                  if (data is MindfulnessExercise) {
+                                    handleMindfullnessPressed(context, data);
+                                  } else if (data is SleepContent) {
+                                    handleSleepStoriesPressed(context, data);
+                                  } else {
+                                    openBottomSheet(
+                                      context,
+                                      data.name,
+                                      data.duration,
+                                      data.description,
+                                      data.category,
+                                      data.videoUrl ?? '',
+                                    );
+                                  }
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
