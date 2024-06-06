@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
 
@@ -8,19 +10,20 @@ class MindfullExerciseProvider extends ChangeNotifier {
   MindfullExerciseProvider() {
     _allMindfullExercises = [
       MindfulnessExercise(
-          category: "Beginners",
-          name: "Mindful Breathing",
-          description:
-              "This mindfulness exercise is perfect for beginners. It focuses on the simple act of breathing to help you become more aware of the present moment. By paying attention to each inhale and exhale, you can learn to anchor yourself in the here and now, reducing feelings of stress and anxiety.",
-          instructions: [
-            "Find a comfortable seat.",
-            "Close your eyes and take a deep breath in.",
-            "Exhale slowly, focusing on your breath.",
-            "Repeat for the duration of the exercise."
-          ],
-          duration: 5,
-          instructionsUrl:
-              "https://example.com/instructions/mindful-breathing"),
+        category: "Beginners",
+        name: "Mindful Breathing",
+        description:
+            "This mindfulness exercise is perfect for beginners. It focuses on the simple act of breathing to help you become more aware of the present moment. By paying attention to each inhale and exhale, you can learn to anchor yourself in the here and now, reducing feelings of stress and anxiety.",
+        instructions: [
+          "Find a comfortable seat.",
+          "Close your eyes and take a deep breath in.",
+          "Exhale slowly, focusing on your breath.",
+          "Repeat for the duration of the exercise."
+        ],
+        duration: 5,
+        instructionsUrl: "https://example.com/instructions/mindful-breathing",
+        imagePath: "assets/images/mindfull.png",
+      ),
       MindfulnessExercise(
           category: "Daily Practice",
           name: "Gratitude Journal",
@@ -32,12 +35,14 @@ class MindfullExerciseProvider extends ChangeNotifier {
             "Write them down in your journal.",
             "Reflect on why these things are meaningful to you."
           ],
+          imagePath: "assets/images/mindfull.png",
           duration: 10,
           instructionsUrl:
               "https://example.com/instructions/gratitude-journal"),
       MindfulnessExercise(
           category: "Stress Relief",
           name: "Body Scan",
+          imagePath: "assets/images/mindfull.png",
           description:
               "This exercise helps to reduce stress by promoting awareness of physical sensations. It involves mentally scanning your body from head to toe, noticing any areas of tension and consciously relaxing them.",
           instructions: [
@@ -51,6 +56,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
       MindfulnessExercise(
           category: "Focus",
           name: "Single-Tasking",
+          imagePath: "assets/images/mindfull.png",
           description:
               "Improve your focus by practicing single-tasking. This exercise encourages you to give your full attention to one task at a time, reducing the habit of multitasking.",
           instructions: [
@@ -63,6 +69,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
           instructionsUrl: "https://example.com/instructions/single-tasking"),
       MindfulnessExercise(
           category: "Anxiety Relief",
+          imagePath: "assets/images/mindfull.png",
           name: "Grounding Exercise",
           description:
               "This exercise helps to alleviate anxiety by grounding you in the present moment. It involves using your senses to connect with your surroundings.",
@@ -80,6 +87,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
       MindfulnessExercise(
           category: "Mindfulness",
           name: "Mindful Walking",
+          imagePath: "assets/images/mindfull.png",
           description:
               "This exercise involves walking slowly and mindfully, paying attention to the sensation of your feet touching the ground and the movement of your body.",
           instructions: [
@@ -92,6 +100,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
           instructionsUrl: "https://example.com/instructions/mindful-walking"),
       MindfulnessExercise(
           category: "Self-Acceptance",
+          imagePath: "assets/images/mindfull.png",
           name: "Loving-Kindness Meditation",
           description:
               "Cultivate self-acceptance and compassion through loving-kindness meditation. This exercise involves silently repeating phrases of goodwill towards yourself and others.",
@@ -106,6 +115,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
       MindfulnessExercise(
           category: "Relaxation",
           name: "Progressive Muscle Relaxation",
+          imagePath: "assets/images/mindfull.png",
           description:
               "This exercise helps to reduce physical tension and promote relaxation by progressively tensing and relaxing different muscle groups.",
           instructions: [
@@ -120,6 +130,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
       MindfulnessExercise(
           category: "Energy",
           name: "Morning Stretch",
+          imagePath: "assets/images/mindfull.png",
           description:
               "Start your day with a mindful morning stretch. This exercise helps to wake up your body and mind, preparing you for the day ahead.",
           instructions: [
@@ -132,6 +143,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
           instructionsUrl: "https://example.com/instructions/morning-stretch"),
       MindfulnessExercise(
           category: "Creativity",
+          imagePath: "assets/images/mindfull.png",
           name: "Mindful Drawing",
           description:
               "Enhance your creativity through mindful drawing. This exercise involves focusing on the process of drawing without judgment or expectations.",
