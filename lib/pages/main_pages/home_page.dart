@@ -66,6 +66,9 @@ class HomePage extends StatelessWidget {
                             url: videoUrl,
                           ),
                         );
+
+                        //close the bottom sheet
+                        Navigator.pop(context);
                       },
                       child: const Text("Start"),
                     ),

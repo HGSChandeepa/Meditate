@@ -23,10 +23,11 @@ class FilterdDataprovider extends ChangeNotifier {
             .mindfullExercise;
 
     final List<SleepContent> sleepContent =
-        Provider.of<SleepContentProvider>(context, listen: false).sleepContents;
+        Provider.of<SleepContentProvider>(context, listen: false).sleepExercise;
 
     final List<MeditationContent> meditations =
-        Provider.of<MeditationProvider>(context, listen: false).meditations;
+        Provider.of<MeditationProvider>(context, listen: false)
+            .meditatonExercise;
 
     _allData = [...mindfullExercise, ...sleepContent, ...meditations];
 
