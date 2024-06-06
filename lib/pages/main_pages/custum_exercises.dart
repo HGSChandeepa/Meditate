@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meditation/router/route_names.dart';
 import 'package:meditation/widgets/tabs/meditation_tab.dart';
 import 'package:meditation/widgets/tabs/mindfull_exercise.dart';
 import 'package:meditation/widgets/tabs/sleep_exercise_tab.dart';
@@ -23,7 +25,7 @@ class CustomExercises extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Add your custom exercise
+            GoRouter.of(context).pushNamed(RouteNames.create);
           },
           child: const Icon(Icons.add),
         ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
+import 'package:meditation/providers/custom_data_provider.dart';
 import 'package:meditation/providers/mindfull_exercise_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -178,8 +179,8 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
               );
 
               //use the provider to add the new mindfull content
-              Provider.of<MindfullExerciseProvider>(context, listen: false)
-                  .addMindfullExercise(mindFullExercise, context);
+              Provider.of<CustomDataProvider>(context, listen: false)
+                  .addMindfulExercise(mindFullExercise, context);
             }
           },
           child: const Text('Submit'),

@@ -178,23 +178,4 @@ class MindfullExerciseProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  //add a new mindfulness exercise
-  void addMindfullExercise(MindfulnessExercise exercise, BuildContext context) {
-    try {
-      _allMindfullExercises.add(exercise);
-      mindfullExercise = List.from(_allMindfullExercises);
-
-      //add the data to hive
-      try {
-        MindFullExerciseService().addMindFullExercise(exercise, context);
-      } catch (e) {
-        print(e);
-      }
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
-    notifyListeners();
-  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditation/models/meditation_model.dart';
+import 'package:meditation/providers/custom_data_provider.dart';
 import 'package:meditation/providers/filter_provider.dart';
 import 'package:meditation/providers/meditation_provider.dart';
 import 'package:provider/provider.dart';
@@ -124,7 +125,7 @@ class MeditationForm extends StatelessWidget {
                     );
 
                     //add the meditation
-                    Provider.of<MeditationProvider>(context, listen: false)
+                    Provider.of<CustomDataProvider>(context, listen: false)
                         .addMeditation(meditation, context);
                   }
                 },

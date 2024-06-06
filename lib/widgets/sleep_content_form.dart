@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditation/models/sleep_content_model.dart';
+import 'package:meditation/providers/custom_data_provider.dart';
 import 'package:meditation/providers/meditation_provider.dart';
 import 'package:meditation/providers/sleep_content_provider.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +111,7 @@ class SleepContentForm extends StatelessWidget {
                     );
 
                     //use the provider to add the new sleep content
-                    Provider.of<SleepContentProvider>(context, listen: false)
+                    Provider.of<CustomDataProvider>(context, listen: false)
                         .addSleepContent(sleepContent, context);
                   }
                 },

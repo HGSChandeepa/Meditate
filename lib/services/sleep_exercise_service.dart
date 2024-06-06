@@ -13,28 +13,11 @@ class SleepExerciseService {
       // Get all the sleep exercises, if any
       final allSleepExercises = sleepExerciseBox.get("sleep_contents");
 
-      // Check if allSleepExercises is null or is not a list of maps
-      List<SleepContent> sleepContentList = [];
-      if (allSleepExercises != null && allSleepExercises is List) {
-        sleepContentList = allSleepExercises.map((item) {
-          if (item is Map<String, dynamic>) {
-            return SleepContent.fromJson(item);
-          } else {
-            return SleepContent.fromJson(Map<String, dynamic>.from(item));
-          }
-        }).toList();
-      }
-
-      // Add the new sleep exercise
-      sleepContentList.add(sleepContent);
-
-      // Convert the sleepContentList back to a List<Map<String, dynamic>> before saving
-      final List<Map<String, dynamic>> sleepContentListJson = sleepContentList
-          .map((sleepContent) => sleepContent.toJson())
-          .toList();
+      //add the new sleep exercise
+      allSleepExercises.add(sleepContent);
 
       // Save the new list of sleep exercises
-      await sleepExerciseBox.put("sleep_contents", sleepContentListJson);
+      await sleepExerciseBox.put("sleep_contents", allSleepExercises);
 
       // Show a snackbar
       ScaffoldMessenger.of(context).showSnackBar(
@@ -43,8 +26,6 @@ class SleepExerciseService {
           duration: Duration(seconds: 2),
         ),
       );
-
-      print("Sleep exercise added");
     } catch (e) {
       print("Service error: $e");
     }
@@ -53,14 +34,14 @@ class SleepExerciseService {
   //Method to get all the sleep exercises
   List<SleepContent> getSleepExercises() {
     try {
-      //get all the sleep exercises
+      // Get all the sleep exercises from the Hive box
       final dynamic allSleepExercises = sleepExerciseBox.get("sleep_contents");
-      //convert the dynamic list to a list of SleepContent
-      final List<SleepContent> sleepContentList = allSleepExercises
-          .map((sleepContent) => SleepContent.fromJson(sleepContent))
-          .toList();
-      print(sleepContentList);
-      return sleepContentList;
+
+      if (allSleepExercises != null && allSleepExercises is List<dynamic>) {
+        return allSleepExercises.cast<SleepContent>().toList();
+      } else {
+        return [];
+      }
     } catch (e) {
       print("Service error: $e");
       return [];
@@ -68,30 +49,25 @@ class SleepExerciseService {
   }
 
   //Method to delete a sleep exercise
-  Future<void> deleteSleepExercise(SleepContent sleepContent) async {
+  Future<void> deleteSleepExercise(
+      SleepContent sleepContent, BuildContext context) async {
     try {
       // Get all the sleep exercises, if any
       final allSleepExercises = sleepExerciseBox.get("sleep_contents");
 
-      // Check if allSleepExercises is null or is not a list of maps
-      List<SleepContent> sleepContentList = [];
-      if (allSleepExercises != null && allSleepExercises is List) {
-        sleepContentList = allSleepExercises.map((item) {
-          if (item is Map<String, dynamic>) {
-            return SleepContent.fromJson(item);
-          } else {
-            return SleepContent.fromJson(Map<String, dynamic>.from(item));
-          }
-        }).toList();
-      }
-
       // Remove the sleep exercise
-      sleepContentList.remove(sleepContent);
+      allSleepExercises.remove(sleepContent);
 
       // Save the new list of sleep exercises
-      await sleepExerciseBox.put("sleep_contents", sleepContentList);
+      await sleepExerciseBox.put("sleep_contents", allSleepExercises);
 
-      print("Sleep exercise deleted");
+      //show a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Sleep exercise deleted"),
+          duration: Duration(seconds: 2),
+        ),
+      );
     } catch (e) {
       print("Service error: $e");
     }

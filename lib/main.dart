@@ -3,6 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:meditation/models/meditation_model.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
 import 'package:meditation/models/sleep_content_model.dart';
+import 'package:meditation/providers/custom_data_provider.dart';
 import 'package:meditation/providers/filter_provider.dart';
 import 'package:meditation/providers/meditation_provider.dart';
 import 'package:meditation/providers/mindfull_exercise_provider.dart';
@@ -18,7 +19,7 @@ void main() async {
   Hive.registerAdapter(SleepContentAdapter());
 
   // Open Hive box
-  await Hive.openBox('meditations');
+  await Hive.openBox('meditations_data');
   await Hive.openBox('mindfull_exercises');
   await Hive.openBox('sleep_contents');
 
@@ -29,6 +30,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => MeditationProvider()),
         ChangeNotifierProvider(create: (context) => SleepContentProvider()),
         ChangeNotifierProvider(create: (context) => FilterdDataprovider()),
+        ChangeNotifierProvider(create: (context) => CustomDataProvider()),
       ],
 
       //initialize Hive
