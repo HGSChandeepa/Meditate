@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:meditation/models/meditation_model.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
@@ -29,7 +27,11 @@ class FilterdDataprovider extends ChangeNotifier {
         Provider.of<MeditationProvider>(context, listen: false)
             .meditatonExercise;
 
-    _allData = [...mindfullExercise, ...sleepContent, ...meditations];
+    _allData = [
+      ...mindfullExercise,
+      ...sleepContent,
+      ...meditations,
+    ];
 
     _filteredData = _allData;
     notifyListeners();

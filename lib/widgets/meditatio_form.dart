@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meditation/models/meditation_model.dart';
+import 'package:meditation/providers/filter_provider.dart';
+import 'package:meditation/providers/meditation_provider.dart';
+import 'package:provider/provider.dart';
 
 class MeditationForm extends StatelessWidget {
   MeditationForm({super.key});
@@ -109,7 +113,19 @@ class MeditationForm extends StatelessWidget {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    //send the data to the API
+                    //create a new meditation
+                    final meditation = MeditationContent(
+                      category: _category,
+                      name: _name,
+                      description: _description,
+                      duration: _duration,
+                      audioUrl: _audioUrl,
+                      videoUrl: _videoUrl,
+                    );
+
+                    //add the meditation
+                    Provider.of<MeditationProvider>(context, listen: false)
+                        .addMeditation(meditation, context);
                   }
                 },
                 child: const Text('Submit'),

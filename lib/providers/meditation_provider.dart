@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditation/models/meditation_model.dart';
+import 'package:meditation/services/meditation_service.dart';
 
 class MeditationProvider extends ChangeNotifier {
   List<MeditationContent> _allMeditationExerciese = [];
@@ -100,5 +101,44 @@ class MeditationProvider extends ChangeNotifier {
     ];
 
     meditatonExercise = List.from(_allMeditationExerciese);
+  }
+
+  //Methode to add a new meditation
+  void addMeditation(MeditationContent meditation, BuildContext context) {
+    try {
+      _allMeditationExerciese.add(meditation);
+
+      //also update the filtered list
+      meditatonExercise.add(meditation);
+
+      //also update the Hive box
+
+      try {
+        MeditationService().addMeditation(meditation, context);
+      } catch (e) {
+        print(e);
+      }
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //Method to delete a meditation
+  void deleteMeditation(MeditationContent meditation) {
+    try {
+      _allMeditationExerciese.remove(meditation);
+      //also update the filtered list
+      meditatonExercise.remove(meditation);
+      //also update the Hive box
+      try {
+        MeditationService().deleteMeditation(meditation);
+      } catch (e) {
+        print(e);
+      }
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 }
