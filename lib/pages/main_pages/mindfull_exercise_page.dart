@@ -5,16 +5,25 @@ import 'package:go_router/go_router.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
 import 'package:meditation/providers/mindfull_exercise_provider.dart';
 import 'package:meditation/router/route_names.dart';
+import 'package:meditation/utils/colors.dart';
+import 'package:meditation/utils/text_styles.dart';
 import 'package:provider/provider.dart';
 
-class MeditationPage extends StatelessWidget {
-  const MeditationPage({super.key});
+class MindFullExercisePage extends StatelessWidget {
+  const MindFullExercisePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mindfull Page'),
+        title: const Text(
+          'Mindfull Exercises',
+          style: TextStyle(
+            fontSize: 29,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primaryPurple,
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -33,12 +42,14 @@ class MeditationPage extends StatelessWidget {
                     hintText: 'Search',
                     prefixIcon: const Icon(Icons.search),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          const BorderSide(color: AppColors.primaryPurple),
+                      borderRadius: BorderRadius.circular(100),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          const BorderSide(color: AppColors.primaryPurple),
+                      borderRadius: BorderRadius.circular(100),
                     ),
                   ),
                 ),
@@ -54,15 +65,37 @@ class MeditationPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         MindfulnessExercise mindfullExercise =
                             mindfulnessExerciseProvider.mindfullExercise[index];
-                        return Card(
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryDarkBlue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: ListTile(
-                            title: Text(mindfullExercise.name),
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                mindfullExercise.imagePath,
+                                width: MediaQuery.of(context).size.width * 0.13,
+                                height:
+                                    MediaQuery.of(context).size.width * 0.13,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            title: Text(
+                              mindfullExercise.name,
+                              style: AppTextStyles.subtitleStyle,
+                            ),
                             subtitle: Text(
                               mindfullExercise.description,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.bodyStyle.copyWith(
+                                color:
+                                    AppColors.primaryDarkBlue.withOpacity(0.7),
+                                fontSize: 14,
+                              ),
                             ),
-                            trailing: const Icon(Icons.arrow_forward_ios),
                             onTap: () {
                               GoRouter.of(context).pushNamed(
                                 RouteNames.mindFullExercise,

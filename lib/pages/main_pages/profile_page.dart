@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meditation/utils/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:meditation/providers/custom_data_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -7,10 +10,120 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Page'),
+        title: const Text('Profile Page'),
       ),
-      body: Center(
-        child: Text('This is the Profile Page!'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'User Created Content',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildSectionTitle('Meditations'),
+                  _buildMeditationList(context),
+                  const SizedBox(height: 20),
+                  _buildSectionTitle('Sleep Content'),
+                  _buildSleepContentList(context),
+                  const SizedBox(height: 20),
+                  _buildSectionTitle('Mindfulness Exercises'),
+                  _buildMindfulnessExerciseList(context),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+
+  Widget _buildMeditationList(BuildContext context) {
+    final meditations = Provider.of<CustomDataProvider>(context).meditations;
+    if (meditations.isEmpty) {
+      return const Text('No meditations created.');
+    }
+    return Column(
+      children: meditations.map((meditation) {
+        return _buildContentTile(
+          title: meditation.name,
+          description: meditation.description,
+          duration: meditation.duration,
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildSleepContentList(BuildContext context) {
+    final sleepContents =
+        Provider.of<CustomDataProvider>(context).sleepExercises;
+    if (sleepContents.isEmpty) {
+      return const Text('No sleep content created.');
+    }
+    return Column(
+      children: sleepContents.map((sleepContent) {
+        return _buildContentTile(
+          title: sleepContent.name,
+          description: sleepContent.description,
+          duration: sleepContent.duration,
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildMindfulnessExerciseList(BuildContext context) {
+    final exercises = Provider.of<CustomDataProvider>(context).mindfulExercises;
+    if (exercises.isEmpty) {
+      return const Text('No mindfulness exercises created.');
+    }
+    return Column(
+      children: exercises.map((exercise) {
+        return _buildContentTile(
+          title: exercise.name,
+          description: exercise.description,
+          duration: exercise.duration,
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildContentTile({
+    required String title,
+    required String description,
+    required int duration,
+  }) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(
+          description,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: Text(
+          '${duration}min',
+          style: TextStyle(
+            color: AppColors.primaryPurple,
+          ),
+        ),
       ),
     );
   }

@@ -8,6 +8,8 @@ import 'package:meditation/models/mindfull_exercise_model.dart';
 import 'package:meditation/models/sleep_content_model.dart';
 import 'package:meditation/providers/filter_provider.dart';
 import 'package:meditation/router/route_names.dart';
+import 'package:meditation/utils/colors.dart';
+import 'package:meditation/utils/text_styles.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -137,51 +139,164 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Home Page",
-                          style: TextStyle(fontSize: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/meditation.png",
+                              width: MediaQuery.of(context).size.width * 0.09,
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "Meditator",
+                              style: TextStyle(
+                                fontSize: 29,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primaryPurple,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 20),
-                        const Text(
+                        Text(
                           "Select a category to start exploring",
-                          style: TextStyle(fontSize: 15),
+                          style: AppTextStyles.subtitleStyle.copyWith(
+                            color: AppColors.primaryDarkBlue,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: AppColors.primaryPurple.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FilterChip(
-                                label: const Text("All"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("All");
-                                },
-                              ),
-                              FilterChip(
-                                label: const Text("Mindfulness"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("Mindfulness");
-                                },
-                              ),
-                              FilterChip(
-                                label: const Text("Meditation"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("Meditation");
-                                },
-                              ),
-                              FilterChip(
-                                label: const Text("Sleep Stories"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("Sleep Stories");
-                                },
-                              ),
-                            ],
-                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    FilterChip(
+                                      label: Text(
+                                        "All",
+                                        style: TextStyle(
+                                          color: filterData
+                                                      .getSelectedCategory() ==
+                                                  "All"
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                      selected:
+                                          filterData.getSelectedCategory() ==
+                                              "All",
+                                      onSelected: (bool value) {
+                                        filterData.filterData("All");
+                                      },
+                                      showCheckmark: false,
+                                      selectedColor: AppColors.primaryPurple,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(
+                                          color: AppColors.primaryPurple
+                                              .withOpacity(0.5),
+                                          width: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    FilterChip(
+                                      label: Text(
+                                        "Mindfulness",
+                                        style: TextStyle(
+                                          color: filterData
+                                                      .getSelectedCategory() ==
+                                                  "Mindfulness"
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                      onSelected: (bool value) {
+                                        filterData.filterData("Mindfulness");
+                                      },
+                                      showCheckmark: false,
+                                      selected:
+                                          filterData.getSelectedCategory() ==
+                                              "Mindfulness",
+                                      selectedColor: AppColors.primaryPurple,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(
+                                          color: AppColors.primaryPurple
+                                              .withOpacity(0.5),
+                                          width: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    FilterChip(
+                                      label: Text(
+                                        "Meditation",
+                                        style: TextStyle(
+                                          color: filterData
+                                                      .getSelectedCategory() ==
+                                                  "Meditation"
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                      selected:
+                                          filterData.getSelectedCategory() ==
+                                              "Meditation",
+                                      onSelected: (bool value) {
+                                        filterData.filterData("Meditation");
+                                      },
+                                      showCheckmark: false,
+                                      selectedColor: AppColors.primaryPurple,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(
+                                          color: AppColors.primaryPurple
+                                              .withOpacity(0.5),
+                                          width: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    FilterChip(
+                                      label: Text(
+                                        "Sleep Stories",
+                                        style: TextStyle(
+                                          color: filterData
+                                                      .getSelectedCategory() ==
+                                                  "Sleep Stories"
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+
+                                      //change the color of the selected chip
+                                      showCheckmark: false,
+                                      selected:
+                                          filterData.getSelectedCategory() ==
+                                              "Sleep Stories",
+                                      onSelected: (bool value) {
+                                        filterData.filterData("Sleep Stories");
+                                      },
+                                      selectedColor: AppColors.primaryPurple,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(
+                                          color: AppColors.primaryPurple
+                                              .withOpacity(0.5),
+                                          width: 2,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
                         ),
                         const SizedBox(height: 20),
                         if (completeData.isNotEmpty)
@@ -212,12 +327,12 @@ class HomePage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: data is MindfulnessExercise
-                                        ? Colors.blue.shade100.withOpacity(0.3)
+                                        ? AppColors.primaryGreen.withOpacity(1)
                                         : data is SleepContent
-                                            ? Colors.green.shade100
-                                                .withOpacity(0.3)
-                                            : Colors.red.shade100
-                                                .withOpacity(0.3),
+                                            ? AppColors.primaryPurple
+                                                .withOpacity(1)
+                                            : AppColors.primaryDarkBlue
+                                                .withOpacity(0.6),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -225,20 +340,37 @@ class HomePage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(data.category,
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20)),
+                                        Text(
+                                          data.name,
+                                          style:
+                                              AppTextStyles.titleStyle.copyWith(
+                                            color: AppColors.primaryWhite,
+                                          ),
+                                        ),
+                                        Text(
+                                          data.category,
+                                          style:
+                                              AppTextStyles.bodyStyle.copyWith(
+                                            color: AppColors.primaryBlack
+                                                .withOpacity(0.5),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                         Text(
                                           '${data.duration} min',
-                                          style: const TextStyle(
-                                            color: Colors.black38,
-                                            fontSize: 15,
+                                          style:
+                                              AppTextStyles.bodyStyle.copyWith(
+                                            color: AppColors.primaryBlack
+                                                .withOpacity(0.5),
                                           ),
                                         ),
                                         Text(data.name),
                                         Text(
                                           data.description,
+                                          style:
+                                              AppTextStyles.bodyStyle.copyWith(
+                                            color: AppColors.primaryWhite,
+                                          ),
                                           maxLines:
                                               (data.description.length / 2)
                                                   .toInt(),

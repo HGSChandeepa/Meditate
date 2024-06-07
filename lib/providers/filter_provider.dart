@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 class FilterdDataprovider extends ChangeNotifier {
   List<dynamic> _allData = [];
   List<dynamic> _filteredData = [];
+  String _selectedCategory = "All"; // Add this
 
   List<dynamic> get filteredData => _filteredData;
 
@@ -38,6 +39,7 @@ class FilterdDataprovider extends ChangeNotifier {
   }
 
   void filterData(String category) {
+    _selectedCategory = category;
     if (category == "All") {
       _filteredData = _allData;
     } else if (category == "Mindfulness") {
@@ -48,5 +50,11 @@ class FilterdDataprovider extends ChangeNotifier {
       _filteredData = _allData.whereType<SleepContent>().toList();
     }
     notifyListeners();
+  }
+
+  //Method to return the selected category
+  // Get the current selected category
+  String getSelectedCategory() {
+    return _selectedCategory; // Update this
   }
 }

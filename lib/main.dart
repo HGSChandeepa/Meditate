@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:meditation/models/meditation_model.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
@@ -9,6 +10,7 @@ import 'package:meditation/providers/meditation_provider.dart';
 import 'package:meditation/providers/mindfull_exercise_provider.dart';
 import 'package:meditation/providers/sleep_content_provider.dart';
 import 'package:meditation/router/router.dart';
+import 'package:meditation/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -46,6 +48,9 @@ class MyApp extends StatelessWidget {
       title: 'Meditation',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        // use inter as the default font
+        fontFamily: GoogleFonts.lato().fontFamily,
+        scaffoldBackgroundColor: AppColors.primaryWhite,
       ),
       routerConfig: RouterClass().router,
     );

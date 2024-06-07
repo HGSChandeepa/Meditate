@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meditation/pages/main_pages/create_custom_exercise.dart';
 import 'package:meditation/pages/main_pages/home_page.dart';
-import 'package:meditation/pages/main_pages/meditation_page.dart';
+import 'package:meditation/pages/main_pages/mindfull_exercise_page.dart';
 import 'package:meditation/pages/main_pages/profile_page.dart';
 import 'package:meditation/pages/main_pages/custum_exercises.dart';
+import 'package:meditation/utils/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: const MainScreen(),
     );
   }
@@ -36,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
 
   static const List<Widget> _pages = <Widget>[
     HomePage(),
-    MeditationPage(),
+    MindFullExercisePage(),
     CreateCustomExercise(),
     CustomExercises(),
     ProfilePage(),
@@ -51,36 +49,41 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Use a transparent background
       body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Mediation',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Create',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Stats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Mediation',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: 'Create',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list),
+              label: 'Stats',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: AppColors.primaryPurple,
+          unselectedItemColor: AppColors.primaryDarkBlue,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

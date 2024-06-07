@@ -3,25 +3,27 @@ import 'package:hive/hive.dart';
 import 'package:meditation/models/meditation_model.dart';
 
 class MeditationService {
-  final _meditationBox = Hive.box('meditations_data');
+  var meditationBox = Hive.box('meditations_data');
 
   // Add a new meditation
   Future<void> addMeditation(
       MeditationContent meditation, BuildContext context) async {
     try {
       // Get all the meditations, if any
-      final dynamic allMeditations = _meditationBox.get("meditations_data");
+      final dynamic allMeditations = meditationBox.get("meditations_data");
 
       List<Map<String, dynamic>> meditationList = [];
       if (allMeditations != null && allMeditations is List) {
-        meditationList = List<Map<String, dynamic>>.from(allMeditations);
+        meditationList = List<Map<String, dynamic>>.from(
+          allMeditations.map((item) => Map<String, dynamic>.from(item)),
+        );
       }
 
       // Add the new meditation
       meditationList.add(meditation.toJson());
 
       // Save the new list of meditations
-      await _meditationBox.put("meditations_data", meditationList);
+      await meditationBox.put("meditations_data", meditationList);
 
       // Show a snackbar
       ScaffoldMessenger.of(context).showSnackBar(
@@ -41,7 +43,7 @@ class MeditationService {
   List<MeditationContent> getMeditations() {
     try {
       // Get all the meditations from Hive
-      final dynamic allMeditations = _meditationBox.get("meditations_data");
+      final dynamic allMeditations = meditationBox.get("meditations_data");
 
       if (allMeditations != null && allMeditations is List) {
         return allMeditations.map((item) {
@@ -65,11 +67,13 @@ class MeditationService {
       MeditationContent meditation, BuildContext context) async {
     try {
       // Get all the meditations, if any
-      final dynamic allMeditations = _meditationBox.get("meditations_data");
+      final dynamic allMeditations = meditationBox.get("meditations_data");
 
       if (allMeditations != null && allMeditations is List) {
         List<Map<String, dynamic>> meditationList =
-            List<Map<String, dynamic>>.from(allMeditations);
+            List<Map<String, dynamic>>.from(
+          allMeditations.map((item) => Map<String, dynamic>.from(item)),
+        );
 
         // Remove the meditation
         meditationList.removeWhere((item) {
@@ -80,7 +84,7 @@ class MeditationService {
         });
 
         // Save the new list of meditations
-        await _meditationBox.put("meditations_data", meditationList);
+        await meditationBox.put("meditations_data", meditationList);
 
         // Show a snackbar
         ScaffoldMessenger.of(context).showSnackBar(

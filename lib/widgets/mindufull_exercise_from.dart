@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meditation/models/mindfull_exercise_model.dart';
 import 'package:meditation/providers/custom_data_provider.dart';
-import 'package:meditation/providers/mindfull_exercise_provider.dart';
+import 'package:meditation/utils/colors.dart';
+import 'package:meditation/widgets/reusable/text_input.dart';
 import 'package:provider/provider.dart';
 
 class MindFullExerciseForm extends StatefulWidget {
@@ -15,10 +16,8 @@ class MindFullExerciseForm extends StatefulWidget {
 }
 
 class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
-  //form key
   final _formKey = GlobalKey<FormState>();
 
-  //data
   String category = "";
   String name = "";
   String description = "";
@@ -44,20 +43,28 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      //form
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text(
+          'Create a new mindfull exercise',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: AppColors.primaryGreen,
+          ),
+        ),
+        const SizedBox(height: 30),
         Form(
           key: _formKey,
           child: Column(
             children: [
-              //image picker
               if (imagepath != null)
                 Image.file(
                   imagepath!,
                   height: 200,
                 ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
                     onPressed: () => _pickImage(ImageSource.camera),
@@ -69,122 +76,144 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
                   ),
                 ],
               ),
-
-              //category
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Category'),
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                labelText: 'Category',
+                onSaved: (value) {
+                  category = value!;
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a category';
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  category = value!;
-                },
               ),
-
-              //name
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Name'),
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                labelText: 'Name',
+                onSaved: (value) {
+                  name = value!;
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  name = value!;
-                },
               ),
-
-              //description
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Description'),
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                labelText: 'Description',
+                onSaved: (value) {
+                  description = value!;
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a description';
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  description = value!;
-                },
               ),
-
-              //instructions
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Instructions'),
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                labelText: 'Instructions',
+                onSaved: (value) {
+                  instructions = value!.split(',');
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter instructions';
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  instructions = value!.split(',');
-                },
               ),
-
-              //duration
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Duration'),
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                labelText: 'Duration',
+                onSaved: (value) {
+                  duration = int.parse(value!);
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a duration';
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  duration = int.parse(value!);
-                },
               ),
-
-              //instructions url
-              TextFormField(
-                decoration:
-                    const InputDecoration(labelText: 'Instructions Url'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a instructions url';
-                  }
-                  return null;
-                },
+              const SizedBox(height: 10),
+              CustomTextFormField(
+                labelText: 'Instructions Url',
                 onSaved: (value) {
                   instructionsUrl = value!;
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an instructions url';
+                  }
+                  return null;
                 },
               ),
             ],
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              _formKey.currentState!.save();
-              //convert the imagepath to a string
-              final imagePathString = imagepath?.path ?? '';
-              print(imagePathString);
-              //create a new MindFullExercise object
-              final MindfulnessExercise mindFullExercise = MindfulnessExercise(
-                category: category,
-                name: name,
-                description: description,
-                instructions: instructions,
-                duration: duration,
-                instructionsUrl: instructionsUrl,
-                imagePath: imagePathString,
-              );
+        const SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  AppColors.primaryGreen,
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  final imagePathString = imagepath?.path ?? '';
 
-              //use the provider to add the new mindfull content
-              Provider.of<CustomDataProvider>(context, listen: false)
-                  .addMindfulExercise(mindFullExercise, context);
-            }
-          },
-          child: const Text('Submit'),
-        )
+                  final MindfulnessExercise mindFullExercise =
+                      MindfulnessExercise(
+                    category: category,
+                    name: name,
+                    description: description,
+                    instructions: instructions,
+                    duration: duration,
+                    instructionsUrl: instructionsUrl,
+                    imagePath: imagePathString,
+                  );
+
+                  _formKey.currentState!.reset();
+                  category = "";
+                  name = "";
+                  description = "";
+                  instructions = [];
+                  duration = 0;
+                  instructionsUrl = "";
+                  imagepath = null;
+
+                  Provider.of<CustomDataProvider>(context, listen: false)
+                      .addMindfulExercise(mindFullExercise, context);
+                }
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: Colors.black38,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
