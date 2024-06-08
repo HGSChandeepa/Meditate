@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:meditation/pages/main_pages/create_custom_exercise.dart';
 import 'package:meditation/pages/main_pages/home_page.dart';
 import 'package:meditation/pages/main_pages/mindfull_exercise_page.dart';
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
-      home: const MainScreen(),
+      home: MainScreen(),
     );
   }
 }
@@ -57,25 +58,72 @@ class _MainScreenState extends State<MainScreen> {
         borderRadius: BorderRadius.circular(100),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: SvgPicture.asset(
+                'assets/icons/home.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 0
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: SvgPicture.asset(
+                'assets/icons/brain.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 1
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+                height: 25,
+                width: 25,
+              ),
               label: 'Mediation',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add),
+              icon: SvgPicture.asset(
+                'assets/icons/circle-plus.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 2
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
               label: 'Create',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.list),
+              icon: SvgPicture.asset(
+                'assets/icons/file-plus-2.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 3
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
               label: 'Stats',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: SvgPicture.asset(
+                'assets/icons/user-round-cog.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 4
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
               label: 'Profile',
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditation/models/functions_model.dart';
+import 'package:meditation/utils/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Functionspage extends StatefulWidget {
@@ -62,14 +63,34 @@ class _FunctionspageState extends State<Functionspage> {
                   )
                 else
                   const Text('No video available'),
-                const SizedBox(height: 10),
-                Text('Duration: ${widget.functionsData.duration} min'),
+                const SizedBox(height: 40),
+                Text(
+                  'Duration: ${widget.functionsData.duration} min',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    color: AppColors.primaryGrey,
+                  ),
+                ),
                 const SizedBox(height: 5),
-                Text('Category: ${widget.functionsData.category}'),
+                Text(
+                  'Category: ${widget.functionsData.category}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    color: AppColors.primaryGreen,
+                  ),
+                ),
                 const SizedBox(height: 5),
-                Text(widget.functionsData.description),
+                Text(
+                  widget.functionsData.description,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    color: AppColors.primaryDarkBlue,
+                  ),
+                ),
                 const SizedBox(height: 5),
-                Text('URL: ${widget.functionsData.url}'),
               ],
             ),
           ),

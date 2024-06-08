@@ -25,18 +25,26 @@ class HomePage extends StatelessWidget {
         return SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(fontSize: 20),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryPurple,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   category,
-                  style: const TextStyle(fontSize: 15),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primaryGrey,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -45,20 +53,30 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  videoUrl.isNotEmpty ? videoUrl : 'No video available',
+                  '$duration min',
                   style: const TextStyle(
                     fontSize: 15,
-                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryGreen,
                   ),
-                ),
-                Text(
-                  '$duration min',
-                  style: const TextStyle(fontSize: 15),
                 ),
                 const SizedBox(height: 20),
                 Row(
                   children: [
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                          AppColors.primaryGreen,
+                        ),
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        shadowColor: WidgetStateProperty.all<Color>(
+                          Colors.transparent,
+                        ),
+                      ),
                       onPressed: () {
                         GoRouter.of(context).push(
                           '/functions',
@@ -75,13 +93,33 @@ class HomePage extends StatelessWidget {
                         //close the bottom sheet
                         Navigator.pop(context);
                       },
-                      child: const Text("Start"),
+                      child: const Text(
+                        "Start",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
+                    const SizedBox(width: 20),
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                          AppColors.primaryGrey,
+                        ),
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        shadowColor: WidgetStateProperty.all<Color>(
+                          Colors.transparent,
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text("Close"),
+                      child: const Text(
+                        "Close",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ],
                 ),

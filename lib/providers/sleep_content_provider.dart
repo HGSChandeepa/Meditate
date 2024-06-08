@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meditation/models/sleep_content_model.dart';
-import 'package:meditation/services/sleep_exercise_service.dart';
 
 class SleepContentProvider extends ChangeNotifier {
   List<SleepContent> _allSleepContents = [];

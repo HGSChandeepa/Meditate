@@ -10,7 +10,14 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile Page'),
+        title: const Text(
+          "Profiles",
+          style: TextStyle(
+            fontSize: 29,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primaryPurple,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,10 +25,11 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'User Created Content',
+              'Here are your custom exercises',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
+                color: AppColors.primaryGreen,
               ),
             ),
             const SizedBox(height: 20),
@@ -120,7 +128,7 @@ class ProfilePage extends StatelessWidget {
         ),
         trailing: Text(
           '${duration}min',
-          style: TextStyle(
+          style:const TextStyle(
             color: AppColors.primaryPurple,
           ),
         ),
