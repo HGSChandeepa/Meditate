@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meditation/services/meditation_service.dart';
+import 'package:meditation/services/mindfull_exercise_service.dart';
+import 'package:meditation/services/sleep_exercise_service.dart';
 import 'package:meditation/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:meditation/providers/custom_data_provider.dart';
@@ -64,7 +67,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildMeditationList(BuildContext context) {
-    final meditations = Provider.of<CustomDataProvider>(context).meditations;
+    final meditations = MeditationService().getMeditations();
     if (meditations.isEmpty) {
       return const Text('No meditations created.');
     }
@@ -80,8 +83,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildSleepContentList(BuildContext context) {
-    final sleepContents =
-        Provider.of<CustomDataProvider>(context).sleepExercises;
+    final sleepContents = SleepExerciseService().getSleepExercises();
     if (sleepContents.isEmpty) {
       return const Text('No sleep content created.');
     }
@@ -97,7 +99,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildMindfulnessExerciseList(BuildContext context) {
-    final exercises = Provider.of<CustomDataProvider>(context).mindfulExercises;
+    final exercises = MindFullExerciseService().getMindFullExercises();
     if (exercises.isEmpty) {
       return const Text('No mindfulness exercises created.');
     }
@@ -128,7 +130,7 @@ class ProfilePage extends StatelessWidget {
         ),
         trailing: Text(
           '${duration}min',
-          style:const TextStyle(
+          style: const TextStyle(
             color: AppColors.primaryPurple,
           ),
         ),
